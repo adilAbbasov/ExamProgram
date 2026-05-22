@@ -1,0 +1,27 @@
+@if (data.title) {
+  <h2 mat-dialog-title class="confirm-title">{{ data.title }}</h2>
+}
+
+<mat-dialog-content class="confirm-content">
+  <div class="message-row" [class.danger]="data.variant === 'danger'">
+    <mat-icon class="message-icon">{{ data.variant === 'danger' ? 'warning' : 'help_outline' }}</mat-icon>
+    <p class="confirm-message">{{ data.message }}</p>
+  </div>
+
+  @if (data.warning) {
+    <div class="confirm-warning">
+      <mat-icon>info</mat-icon>
+      <span>{{ data.warning }}</span>
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">{{ data.cancelText ?? 'Ləğv et' }}</button>
+  <button
+    mat-flat-button
+    [class.danger-btn]="data.variant === 'danger'"
+    (click)="confirm()">
+    {{ data.confirmText ?? 'Təsdiq et' }}
+  </button>
+</mat-dialog-actions>

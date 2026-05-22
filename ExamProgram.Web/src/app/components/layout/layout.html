@@ -1,0 +1,50 @@
+<mat-sidenav-container class="layout-container">
+  <mat-sidenav #sidenav mode="side" opened class="layout-sidenav">
+    <div class="brand">
+      <mat-icon class="brand-icon">school</mat-icon>
+      <div class="brand-text">
+        <div class="brand-title">İmtahan Proqramı</div>
+        <div class="brand-subtitle">İdarəetmə Sistemi</div>
+      </div>
+    </div>
+
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/lessons" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>menu_book</mat-icon>
+        <span matListItemTitle>Dərslər</span>
+        <span matListItemMeta class="nav-badge">{{ stats.lessonsCount() }}</span>
+      </a>
+      <a mat-list-item routerLink="/students" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>groups</mat-icon>
+        <span matListItemTitle>Şagirdlər</span>
+        <span matListItemMeta class="nav-badge">{{ stats.studentsCount() }}</span>
+      </a>
+      <a mat-list-item routerLink="/exams" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>assignment</mat-icon>
+        <span matListItemTitle>İmtahanlar</span>
+        <span matListItemMeta class="nav-badge">{{ stats.examsCount() }}</span>
+      </a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="top-toolbar">
+      <button mat-icon-button (click)="toggle()" matTooltip="Yan paneli aç/bağla" aria-label="Menyu">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="toolbar-spacer"></span>
+
+      <button mat-icon-button matTooltip="Bildirişlər" aria-label="Bildirişlər">
+        <mat-icon matBadge="3" matBadgeColor="warn" matBadgeSize="small">notifications</mat-icon>
+      </button>
+
+      <div class="toolbar-avatar" aria-label="Profil">MM</div>
+    </mat-toolbar>
+
+    <main class="content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

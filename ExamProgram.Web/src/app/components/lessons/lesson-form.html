@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Dərsi redaktə et' : 'Dərs əlavə et' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content class="form-content">
+    <mat-form-field appearance="outline">
+      <mat-label>Dərs kodu</mat-label>
+      <input matInput formControlName="lessonCode" maxlength="3" placeholder="məs. MTH" />
+      <mat-hint>3 simvol</mat-hint>
+      @if (form.controls.lessonCode.hasError('required') && form.controls.lessonCode.touched) {
+        <mat-error>Kod tələb olunur</mat-error>
+      }
+      @if (form.controls.lessonCode.hasError('minlength') || form.controls.lessonCode.hasError('maxlength')) {
+        <mat-error>Kod tam 3 simvol olmalıdır</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Dərsin adı</mat-label>
+      <input matInput formControlName="lessonName" maxlength="30" />
+      @if (form.controls.lessonName.hasError('required') && form.controls.lessonName.touched) {
+        <mat-error>Ad tələb olunur</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Sinif</mat-label>
+      <mat-select formControlName="grade">
+        @for (g of grades; track g) {
+          <mat-option [value]="g">{{ g }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Müəllimin adı</mat-label>
+      <input matInput formControlName="teacherFirstName" maxlength="20" />
+      @if (form.controls.teacherFirstName.hasError('required') && form.controls.teacherFirstName.touched) {
+        <mat-error>Tələb olunur</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Müəllimin soyadı</mat-label>
+      <input matInput formControlName="teacherLastName" maxlength="20" />
+      @if (form.controls.teacherLastName.hasError('required') && form.controls.teacherLastName.touched) {
+        <mat-error>Tələb olunur</mat-error>
+      }
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Ləğv et</button>
+    <button mat-flat-button type="submit" [disabled]="form.invalid">
+      {{ isEdit ? 'Yenilə' : 'Yadda saxla' }}
+    </button>
+  </mat-dialog-actions>
+</form>

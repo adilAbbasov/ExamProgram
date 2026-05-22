@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ isEdit ? 'İmtahanı redaktə et' : 'İmtahan əlavə et' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content class="form-content">
+    <mat-form-field appearance="outline">
+      <mat-label>Dərs</mat-label>
+      <mat-select formControlName="lessonCode">
+        @for (l of lessons; track l.lessonCode) {
+          <mat-option [value]="l.lessonCode">{{ l.lessonCode }} - {{ l.lessonName }}</mat-option>
+        }
+      </mat-select>
+      @if (form.controls.lessonCode.hasError('required') && form.controls.lessonCode.touched) {
+        <mat-error>Dərs tələb olunur</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Şagird</mat-label>
+      <mat-select formControlName="studentNumber">
+        @for (s of students; track s.studentNumber) {
+          <mat-option [value]="s.studentNumber">
+            #{{ s.studentNumber }} - {{ s.firstName }} {{ s.lastName }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (form.controls.studentNumber.hasError('required') && form.controls.studentNumber.touched) {
+        <mat-error>Şagird tələb olunur</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>İmtahan tarixi</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="examDate" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+      <mat-datepicker #picker />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Qiymət</mat-label>
+      <mat-select formControlName="score">
+        @for (s of scores; track s) {
+          <mat-option [value]="s">{{ s }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Ləğv et</button>
+    <button mat-flat-button type="submit" [disabled]="form.invalid">
+      {{ isEdit ? 'Yenilə' : 'Yadda saxla' }}
+    </button>
+  </mat-dialog-actions>
+</form>

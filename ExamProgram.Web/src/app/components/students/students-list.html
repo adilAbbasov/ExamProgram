@@ -1,0 +1,85 @@
+<div class="page-header">
+  <h1>Şagirdlər</h1>
+  <button mat-flat-button (click)="openAdd()">
+    <mat-icon>add</mat-icon>
+    Şagird əlavə et
+  </button>
+</div>
+
+@if (loading()) {
+  <app-skeleton-table />
+} @else if (students().length === 0) {
+  <app-empty-state
+    icon="school"
+    title="Hələ qeydə alınmış şagird yoxdur"
+    description="Şagirdləri qeydə alın və onların imtahan nəticələrini izləyin."
+    actionText="İlk şagirdi əlavə et"
+    (action)="openAdd()" />
+} @else {
+  <div class="toolbar-row">
+    <div class="search-bar">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input
+        type="text"
+        placeholder="Ad, soyad və ya nömrəyə görə axtar"
+        [ngModel]="search()"
+        (ngModelChange)="onSearchChange($event)" />
+      @if (search()) {
+        <button class="clear-btn" (click)="onSearchChange('')" aria-label="Təmizlə">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="table-card">
+    <table mat-table [dataSource]="dataSource" matSort matSortDisableClear class="data-table">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="fullName">Şagird</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="student-cell">
+            <app-avatar [name]="row.firstName + ' ' + row.lastName" />
+            <span class="primary-cell">{{ row.firstName }} {{ row.lastName }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="studentNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nömrə</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="code-pill">#{{ row.studentNumber }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="grade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sinif</th>
+        <td mat-cell *matCellDef="let row">{{ row.grade }}-cu</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-col">Əməliyyatlar</th>
+        <td mat-cell *matCellDef="let row" class="actions-col">
+          <button mat-icon-button class="row-action edit-action" (click)="openEdit(row)" aria-label="Redaktə et" matTooltip="Redaktə et">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button class="row-action delete-action" (click)="remove(row)" aria-label="Sil" matTooltip="Sil">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    @if (filtered().length === 0 && search()) {
+      <p class="no-results">"{{ search() }}" sorğusuna uyğun şagird tapılmadı.</p>
+    }
+
+    <mat-paginator
+      [length]="filtered().length"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25]"
+      showFirstLastButtons />
+  </div>
+}

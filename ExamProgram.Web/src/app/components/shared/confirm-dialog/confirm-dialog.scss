@@ -1,0 +1,75 @@
+:host {
+  display: block;
+  min-width: 420px;
+  max-width: 480px;
+}
+
+.confirm-title {
+  font-weight: 600;
+  margin-bottom: 4px !important;
+}
+
+.confirm-content {
+  padding-top: 20px !important;
+}
+
+.message-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  border-radius: 10px;
+}
+
+.message-row.danger {
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}
+
+.message-icon {
+  flex-shrink: 0;
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.confirm-message {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.confirm-warning {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-top: 12px;
+  background: var(--mat-sys-surface-container);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.confirm-warning mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.danger-btn {
+  --mdc-filled-button-container-color: var(--mat-sys-error);
+  --mdc-filled-button-label-text-color: var(--mat-sys-on-error);
+}

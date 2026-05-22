@@ -1,0 +1,90 @@
+<div class="page-header">
+  <h1>Dərslər</h1>
+  <button mat-flat-button (click)="openAdd()">
+    <mat-icon>add</mat-icon>
+    Dərs əlavə et
+  </button>
+</div>
+
+@if (loading()) {
+  <app-skeleton-table />
+} @else if (lessons().length === 0) {
+  <app-empty-state
+    icon="menu_book"
+    title="Hələ qeydə alınmış dərs yoxdur"
+    description="İlk dərsi əlavə edərək başlayın. Sonra şagirdləri qeydə alıb imtahan keçirə bilərsiniz."
+    actionText="İlk dərsi əlavə et"
+    (action)="openAdd()" />
+} @else {
+  <div class="toolbar-row">
+    <div class="search-bar">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input
+        type="text"
+        placeholder="Kod, ad və ya müəllimə görə axtar"
+        [ngModel]="search()"
+        (ngModelChange)="onSearchChange($event)" />
+      @if (search()) {
+        <button class="clear-btn" (click)="onSearchChange('')" aria-label="Təmizlə">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="table-card">
+    <table mat-table [dataSource]="dataSource" matSort matSortDisableClear class="data-table">
+      <ng-container matColumnDef="lessonCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Kod</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="code-pill">{{ row.lessonCode }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lessonName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Adı</th>
+        <td mat-cell *matCellDef="let row" class="primary-cell">{{ row.lessonName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="grade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sinif</th>
+        <td mat-cell *matCellDef="let row">{{ row.grade }}-cu</td>
+      </ng-container>
+
+      <ng-container matColumnDef="teacher">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="teacherFullName">Müəllim</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="teacher-cell">
+            <app-avatar [name]="row.teacherFirstName + ' ' + row.teacherLastName" />
+            <span>{{ row.teacherFirstName }} {{ row.teacherLastName }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-col">Əməliyyatlar</th>
+        <td mat-cell *matCellDef="let row" class="actions-col">
+          <button mat-icon-button class="row-action edit-action" (click)="openEdit(row)" aria-label="Redaktə et" matTooltip="Redaktə et">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button class="row-action delete-action" (click)="remove(row)" aria-label="Sil" matTooltip="Sil">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    @if (filtered().length === 0 && search()) {
+      <p class="no-results">"{{ search() }}" sorğusuna uyğun dərs tapılmadı.</p>
+    }
+
+    <mat-paginator
+      [length]="filtered().length"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25]"
+      showFirstLastButtons />
+  </div>
+}

@@ -1,0 +1,129 @@
+.layout-container {
+  height: 100vh;
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.layout-sidenav {
+  width: 264px;
+  border-right: 1px solid var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  height: 64px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--mat-sys-on-surface);
+}
+
+.brand-subtitle {
+  font-size: 12px;
+  color: var(--mat-sys-on-surface-variant);
+  margin-top: 2px;
+}
+
+.nav-list {
+  flex: 1;
+  padding: 12px 8px !important;
+}
+
+.nav-list a {
+  border-radius: 12px !important;
+  margin-bottom: 4px;
+  height: 48px !important;
+  --mdc-list-list-item-label-text-weight: 500;
+}
+
+.nav-list a:hover {
+  background-color: var(--mat-sys-surface-container);
+}
+
+.active-link {
+  background-color: var(--mat-sys-secondary-container) !important;
+  color: var(--mat-sys-on-secondary-container) !important;
+}
+
+.active-link mat-icon {
+  color: var(--mat-sys-on-secondary-container) !important;
+}
+
+.nav-badge {
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+}
+
+.active-link .nav-badge {
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.top-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--mat-sys-surface);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  height: 64px;
+  gap: 4px;
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.toolbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  margin-left: 4px;
+  user-select: none;
+}
+
+.content {
+  padding: 28px 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
